@@ -20,11 +20,26 @@ envelope.addEventListener("click", () => {
     },50);
 });
 
+let isRunaway = false;
+
+noBtn.addEventListener("click", () => {
+    if (!isRunaway) {
+        // First interaction: Change content and enable runaway mode
+        title.textContent = "Naah that's not happening just press yes";
+        catImg.src = "heh.jpg";
+        isRunaway = true;
+    }
+});
+
+
 // Logic to move the NO btn
 
 noBtn.addEventListener("mouseover", () => {
-    const min = 200;
-    const max = 200;
+    // Only run away if the first click has happened
+    if (!isRunaway) return;
+
+    const min = 80;
+    const max = 200; // Limit max distance to keep it generally on screen
 
     const distance = Math.random() * (max - min) + min;
     const angle = Math.random() * Math.PI * 2;
@@ -32,7 +47,7 @@ noBtn.addEventListener("mouseover", () => {
     const moveX = Math.cos(angle) * distance;
     const moveY = Math.sin(angle) * distance;
 
-    noBtn.style.transition = "transform 0.3s ease";
+    noBtn.style.transition = "transform 0.2s ease";
     noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
 });
 
@@ -60,7 +75,7 @@ noBtn.addEventListener("mouseover", () => {
 // YES is clicked
 
 yesBtn.addEventListener("click", () => {
-    title.textContent = "Yippeeee!";
+    title.textContent = "Here we go again!";
 
     catImg.src = "cat_dance.gif";
 
